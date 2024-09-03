@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Modal from "./components/Modal";
+import Game from "./components/Game";
 
 function App() {
   return (
     <>
-      <Modal />
+      <Game />
     </>
   );
 }

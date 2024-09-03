@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export default function Modal() {
+export default function Modal({ onClick }) {
   return (
     <Position>
+      <Backdrop />
       <Container>
         <Title>Welcome to memory card game !</Title>
-        <StartButton>Start</StartButton>
+        <StartButton onClick={onClick}>Start</StartButton>
       </Container>
-      <Backdrop />
     </Position>
   );
 }

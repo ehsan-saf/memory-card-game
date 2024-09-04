@@ -11,9 +11,18 @@ export default function Game() {
     setStarted(true);
   }
 
+  return <>{!started ? <Start /> : null}</>;
+}
+
+function Start() {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      {!started ? <Modal onClick={startGame} /> : <LoadProgress value={50} />}
+      {!isLoading ? (
+        <Modal onClick={() => setIsLoading(true)} />
+      ) : (
+        <LoadProgress />
+      )}
     </>
   );
 }

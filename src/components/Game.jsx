@@ -1,6 +1,5 @@
-import { useState } from "react";
-import Modal from "./Modal";
-import LoadProgress from "./LoadProgress";
+import { useEffect, useState } from "react";
+import Load from "./Load";
 
 export default function Game() {
   const [score, setScore] = useState(0);
@@ -11,18 +10,13 @@ export default function Game() {
     setStarted(true);
   }
 
-  return <>{!started ? <Start /> : null}</>;
+  return <>{!started ? <Load /> : <Main />}</>;
 }
 
-function Start() {
-  const [isLoading, setIsLoading] = useState(false);
+function Main() {
   return (
     <>
-      {!isLoading ? (
-        <Modal onClick={() => setIsLoading(true)} />
-      ) : (
-        <LoadProgress />
-      )}
+      <h1>Main Page !</h1>
     </>
   );
 }

@@ -1,12 +1,21 @@
 import styled, { keyframes } from "styled-components";
 
-export default function LoadProgress() {
+export default function LoadProgress({ error }) {
   return (
     <Position>
       <Backdrop />
       <Container>
-        <Title>Loading</Title>
-        <Circle />
+        {error === null ? (
+          <>
+            <Title>Loading</Title>
+            <Circle />{" "}
+          </>
+        ) : (
+          <>
+            <ErrorMessage>error</ErrorMessage>
+            <TryButton>Try Again</TryButton>
+          </>
+        )}
       </Container>
     </Position>
   );
@@ -59,4 +68,23 @@ const Circle = styled.div`
 
   will-change: transform;
   animation: ${rotate} 0.8s linear infinite;
+`;
+
+const ErrorMessage = styled.h2`
+  font-size: 1.2rem;
+  color: red;
+`;
+
+const TryButton = styled.button`
+  display: flex;
+  justify-content: center;
+
+  border: 3px solid green;
+  border-radius: 8px;
+
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  padding: 5px 22px;
 `;

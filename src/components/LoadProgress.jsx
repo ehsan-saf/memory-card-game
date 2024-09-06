@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-export default function LoadProgress({ error }) {
+export default function LoadProgress({ error, onTryAgain }) {
   return (
     <Position>
       <Backdrop />
@@ -13,7 +13,7 @@ export default function LoadProgress({ error }) {
         ) : (
           <>
             <ErrorMessage>error</ErrorMessage>
-            <TryButton>Try Again</TryButton>
+            <TryButton onClick={onTryAgain}>Try Again</TryButton>
           </>
         )}
       </Container>
@@ -86,5 +86,8 @@ const TryButton = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
 
+  background-color: white;
+
   padding: 5px 22px;
+  cursor: pointer;
 `;

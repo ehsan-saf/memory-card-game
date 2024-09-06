@@ -42,6 +42,12 @@ function Load() {
     }
   }
 
+  function handleTryAgain() {
+    setServerError(null);
+    setData([]);
+    getData();
+  }
+
   return (
     <>
       {!startClicked && (
@@ -52,7 +58,9 @@ function Load() {
           }}
         />
       )}
-      {isLoading && <LoadProgress error={serverError} />}
+      {(isLoading || serverError) && (
+        <LoadProgress error={serverError} onTryAgain={handleTryAgain} />
+      )}
     </>
   );
 }

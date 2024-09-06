@@ -38,8 +38,8 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, minmax(150px, 1fr));
   justify-content: center;
-  gap: 25px;
-  padding: 30px;
+  gap: 30px;
+  padding: 20px;
 
   @media (max-width: 900px) {
     grid-template-columns: repeat(4, 1fr);
@@ -52,7 +52,9 @@ const Grid = styled.div`
 
   @media (max-width: 400px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
     padding: 10px;
+    margin: 0;
   }
 `;
 
@@ -87,7 +89,7 @@ const Name = styled.p`
   align-items: center;
 
   font-size: 1.2rem;
-  font-weight: bold;
+  letter-spacing: 2px;
 
   border-top: 1px solid black;
 

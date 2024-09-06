@@ -32,7 +32,7 @@ const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   filter: blur(10px);
-  background-color: hsla(0, 0%, 99%, 0.9);
+  background-color: hsla(0, 0%, 99%, 0.2);
 `;
 
 const Container = styled.div`

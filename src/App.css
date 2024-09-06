@@ -1,0 +1,9 @@
+@font-face {
+  font-family: def;
+  src: url("./assets/font/NerkoOne-Regular.ttf");
+}
+
+#root {
+  font-family: def, Arial, Helvetica, sans-serif;
+  letter-spacing: 2px;
+}

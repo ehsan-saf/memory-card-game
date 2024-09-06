@@ -14,6 +14,27 @@ function Load() {
   const [serverError, setServerError] = useState(null);
   const [startClicked, setStartClicked] = useState(false);
 
+  async function createImageObject(url) {
+    const resp = await fetch(url);
+    const imageBlob = await resp.blob();
+
+    const imageSrc = URL.createObjectURL(imageBlob);
+    return imageSrc;
+  }
+
+  async function extractData(items) {
+    let temp = [];
+    for (const item of items) {
+      const resp = await fetch(item.url);
+      const data = await resp.json();
+
+      const image = await createImageObject(data.sprites["front_default"]);
+
+      temp.push({ name: data.name, image });
+    }
+    return temp;
+  }
+
   async function getData() {
     const randomOffset = randomInt(100);
     const url = `${api_url}&offset=${randomOffset}`;
@@ -26,14 +47,8 @@ function Load() {
         signal: abortController.signal,
       });
       const Items = await resp.json();
-      const temp = [];
+      const temp = await extractData(Items.results);
 
-      for (const item of Items.results) {
-        const resp = await fetch(item.url);
-        const data = await resp.json();
-        temp.push(data);
-      }
-      console.log(temp);
       setData(temp);
       setIsLoading(false);
     } catch (error) {

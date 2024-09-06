@@ -2,15 +2,15 @@ import { useState } from "react";
 import LoadProgress from "./LoadProgress";
 import Modal from "./Modal";
 
-const api_url = `https://pokeapi.co/api/v2/pokemon?limit=10`;
+const quantity = 10;
+const api_url = `https://pokeapi.co/api/v2/pokemon?limit=${quantity}`;
 
 function randomInt(max) {
   return Math.floor(Math.random() * (max + 1));
 }
 
-function Load() {
+function Load({ start, setData }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
   const [serverError, setServerError] = useState(null);
   const [startClicked, setStartClicked] = useState(false);
 
@@ -30,7 +30,7 @@ function Load() {
 
       const image = await createImageObject(data.sprites["front_default"]);
 
-      temp.push({ name: data.name, image });
+      temp.push({ id: data.id, name: data.name, image });
     }
     return temp;
   }
@@ -51,6 +51,7 @@ function Load() {
 
       setData(temp);
       setIsLoading(false);
+      start();
     } catch (error) {
       setServerError(error);
       setIsLoading(false);

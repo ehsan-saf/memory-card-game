@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Load from "./Load";
+import Main from "./Main";
 
 export default function Game() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [data, setData] = useState([]);
   const [started, setStarted] = useState(false);
 
   function startGame() {
     setStarted(true);
   }
 
-  return <>{!started ? <Load /> : <Main />}</>;
-}
-
-function Main() {
   return (
     <>
-      <h1>Main Page !</h1>
+      {!started ? (
+        <Load start={startGame} setData={setData} />
+      ) : (
+        <Main data={data} />
+      )}
     </>
   );
 }

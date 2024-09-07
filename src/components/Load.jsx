@@ -2,7 +2,7 @@ import { useState } from "react";
 import LoadProgress from "./LoadProgress";
 import Modal from "./Modal";
 
-const quantity = 10;
+const quantity = 15;
 const api_url = `https://pokeapi.co/api/v2/pokemon?limit=${quantity}`;
 
 function randomInt(max) {

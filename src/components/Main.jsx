@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import forestBackground from "../assets/image/bg-forest.jpg";
 
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -40,7 +41,10 @@ export default function Main({ data, setData }) {
 
   return (
     <Container>
-      <Scoreboard></Scoreboard>
+      <Scoreboard>
+        <Score>Score : {score}</Score>
+        <Bestscore>Best Score : {bestScore}</Bestscore>
+      </Scoreboard>
       <Grid>
         {data.map((item) => {
           return (
@@ -58,13 +62,45 @@ export default function Main({ data, setData }) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100svw;
+    height: 100svh;
+
+    background-image: url(${forestBackground});
+    background-size: cover;
+    background-position: center;
+  }
 `;
 
 const Scoreboard = styled.div`
+  position: sticky;
+  top: 0;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-self: center;
+
+  padding: 10px;
+
+  border-radius: 0 0 20px 20px;
+
+  background: hsla(0, 0%, 100%, 0.9);
+`;
+
+const Score = styled.p`
+  font-size: 1.5rem;
+`;
+
+const Bestscore = styled.p`
+  font-size: 1.5rem;
+  color: #daa520;
 `;
 
 const Grid = styled.div`
@@ -105,9 +141,16 @@ const Card = styled.button`
 
   padding: 0;
 
-  background: none;
+  background: hsla(0, 0%, 100%, 0.8);
 
   cursor: pointer;
+
+  transition: 0.3s background, 0.3s transform;
+
+  &:hover {
+    background: hsla(0, 0%, 100%, 1);
+    transform: scale(1.1);
+  }
 `;
 
 const Image = styled.img`

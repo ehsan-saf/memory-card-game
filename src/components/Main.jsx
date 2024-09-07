@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 
 function shuffle(arr) {
@@ -10,12 +10,30 @@ function shuffle(arr) {
 }
 
 export default function Main({ data, setData }) {
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
+  const selectedCards = useRef(new Set());
+
   useEffect(() => {
     const shuffledArray = shuffle([...data]);
     setData(shuffledArray);
   }, []);
 
-  function handleClick() {
+  function updateScore(id) {
+    const set = selectedCards.current;
+    if (set.has(id)) {
+      set.clear();
+      setBestScore(Math.max(score, bestScore));
+      setScore(0);
+    } else {
+      set.add(id);
+      setBestScore(Math.max(score + 1, bestScore));
+      setScore(score + 1);
+    }
+  }
+
+  function handleClick(id) {
+    updateScore(id);
     const shuffledArray = shuffle([...data]);
     setData(shuffledArray);
   }
@@ -26,12 +44,10 @@ export default function Main({ data, setData }) {
       <Grid>
         {data.map((item) => {
           return (
-            <>
-              <Card id={item.id} onClick={handleClick}>
-                <Image src={item.image} />
-                <Name>{item.name}</Name>
-              </Card>
-            </>
+            <Card key={item.id} onClick={() => handleClick(item.id)}>
+              <Image src={item.image} />
+              <Name>{item.name}</Name>
+            </Card>
           );
         })}
       </Grid>

@@ -18,7 +18,7 @@ export default function Game() {
       {!started ? (
         <Load start={startGame} setData={setData} />
       ) : (
-        <Main data={data} />
+        <Main data={data} setData={setData} />
       )}
     </>
   );

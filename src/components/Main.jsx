@@ -1,6 +1,25 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
-export default function Main({ data }) {
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+export default function Main({ data, setData }) {
+  useEffect(() => {
+    const shuffledArray = shuffle([...data]);
+    setData(shuffledArray);
+  }, []);
+
+  function handleClick() {
+    const shuffledArray = shuffle([...data]);
+    setData(shuffledArray);
+  }
+
   return (
     <Container>
       <Scoreboard></Scoreboard>
@@ -8,7 +27,7 @@ export default function Main({ data }) {
         {data.map((item) => {
           return (
             <>
-              <Card id={item.id}>
+              <Card id={item.id} onClick={handleClick}>
                 <Image src={item.image} />
                 <Name>{item.name}</Name>
               </Card>

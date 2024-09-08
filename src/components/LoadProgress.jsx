@@ -12,7 +12,7 @@ export default function LoadProgress({ error, onTryAgain }) {
           </>
         ) : (
           <>
-            <ErrorMessage>error</ErrorMessage>
+            <ErrorMessage>Connection Error</ErrorMessage>
             <TryButton onClick={onTryAgain}>Try Again</TryButton>
           </>
         )}

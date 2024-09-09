@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import forestBackground from "../assets/image/bg-forest.jpg";
+import replayIcon from "../assets/icon/replay.svg";
 
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -10,10 +11,15 @@ function shuffle(arr) {
   return arr;
 }
 
-export default function Main({ data, setData }) {
+export default function Main({ data, setData, setStarted }) {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const selectedCards = useRef(new Set());
+
+  function restart() {
+    setData([]);
+    setStarted(false);
+  }
 
   useEffect(() => {
     const shuffledArray = shuffle([...data]);
@@ -42,8 +48,14 @@ export default function Main({ data, setData }) {
   return (
     <Container>
       <Scoreboard>
-        <Score>Score : {score}</Score>
-        <Bestscore>Best Score : {bestScore}</Bestscore>
+        <ScoreContainer>
+          <Score>Score : {score}</Score>
+          <Bestscore>Best Score : {bestScore}</Bestscore>
+        </ScoreContainer>
+        <ReplayButton onClick={restart}>
+          <img src={replayIcon} alt="" width={40} />
+          <span>Replay</span>
+        </ReplayButton>
       </Scoreboard>
       <Grid>
         {data.map((item) => {
@@ -83,15 +95,21 @@ const Scoreboard = styled.div`
   top: 0;
 
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-self: center;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
 
   padding: 10px;
 
   border-radius: 0 0 20px 20px;
 
   background: hsla(0, 0%, 100%, 0.9);
+`;
+
+const ScoreContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const Score = styled.p`
@@ -101,6 +119,23 @@ const Score = styled.p`
 const Bestscore = styled.p`
   font-size: 1.5rem;
   color: #daa520;
+`;
+
+const ReplayButton = styled.button`
+  appearance: none;
+  background: none;
+  border: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  cursor: pointer;
+
+  & > span {
+    font-size: 1.18rem;
+  }
 `;
 
 const Grid = styled.div`
